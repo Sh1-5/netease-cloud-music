@@ -7,7 +7,7 @@ module.exports = {
     },
     configure: {
       output: {
-        publicPath: '/netease-cloud-music/'
+        publicPath: ''
       }
     }
   }

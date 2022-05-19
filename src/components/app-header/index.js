@@ -9,7 +9,11 @@ const AppHeader = memo(() => {
     if (index < 3) {
       return <NavLink to={item.link}>{item.title}</NavLink>
     } else {
-      return <a href={item.link}>{item.title}</a>
+      return (
+        <a href={item.link} target="_blank" rel="noreferrer">
+          {item.title}
+        </a>
+      )
     }
   }
   return (
