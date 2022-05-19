@@ -5,8 +5,10 @@ module.exports = {
     alias: {
       '@': path.resolve(__dirname, 'src')
     },
-    output: {
-      publicPath: './'
+    configure: {
+      output: {
+        publicPath: '/netease-cloud-music/'
+      }
     }
   }
 }
