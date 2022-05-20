@@ -8,19 +8,23 @@ export const DiscoverWrapper = styled.div`
 `
 
 export const TopMenu = styled.div`
-  display: flex;
   padding-left: 180px;
+
+  display: flex;
+
   position: relative;
   top: -4px;
 
   .item {
     a {
-      display: inline-block;
       height: 20px;
       line-height: 20px;
       padding: 0 13px;
       margin: 7px 17px 0;
       color: #fff;
+      font-size: 12px;
+
+      display: inline-block;
 
       &:hover,
       &.active {

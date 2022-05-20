@@ -1,21 +1,14 @@
-import React, { memo, useEffect } from 'react'
-import { useDispatch, useSelector, shallowEqual } from 'react-redux'
+import React, { memo } from 'react'
 
-import { getBannerAction } from './store/actionCreators'
+import { RecommendWrapper } from './style'
+import Banner from './c-cpns/banner'
 
 const Recommend = memo(() => {
-  const { banner } = useSelector((state) => {
-    return {
-      banner: state.recommend.banner
-    }
-  }, shallowEqual)
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(getBannerAction())
-  }, [dispatch])
-
-  return <div>Recommend{banner.length}</div>
+  return (
+    <RecommendWrapper>
+      <Banner />
+    </RecommendWrapper>
+  )
 })
 
 Recommend.displayName = 'Recommend'
