@@ -1,0 +1,5 @@
+export const HOT_RECOMMEND_LIMIT = 8
+
+export const UP_RANKING_ID = 19723756
+export const NEW_RANKING_ID = 3779629
+export const ORIGIN_RANKING_ID = 2884035

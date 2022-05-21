@@ -21,7 +21,7 @@ const AppFooter = memo(() => {
             })}
           </div>
           <div className="copyright">
-            <span>网易公司版权所有©1997-2020</span>
+            <span>网易公司版权所有©1997-2022</span>
             <span>
               杭州乐读科技有限公司运营：
               <a

@@ -1,12 +1,14 @@
-import React, { memo, useEffect, useRef } from 'react'
-import { useSelector, useDispatch, shallowEqual } from 'react-redux'
-
-import { getBannerAction } from '../../store/actionCreators'
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react'
+import { useSelector, shallowEqual, useDispatch } from 'react-redux'
 
 import { BannerWrapper, BannerLeft, BannerRight, BannerControl } from './style'
+import { getBannerAction } from '../../store/actionCreators'
 import { Carousel } from 'antd'
 
 const Banner = memo(() => {
+  // 记录当前banner
+  const [currentIndex, setCurrentIndex] = useState(0)
+
   const { banner } = useSelector((state) => {
     return {
       // banner: state.get('recommend').get('banner')
@@ -19,12 +21,24 @@ const Banner = memo(() => {
   useEffect(() => {
     dispatch(getBannerAction())
   }, [dispatch])
+  const bannerChange = useCallback((from, to) => {
+    setCurrentIndex(to)
+  }, [])
+
+  const bgImage =
+    banner[currentIndex] &&
+    banner[currentIndex].imageUrl + '?imageView&blur=40x20'
 
   return (
-    <BannerWrapper>
+    <BannerWrapper bgImage={bgImage}>
       <div className="banner wrap-v2">
         <BannerLeft>
-          <Carousel effect="fade" autoplay ref={bannerRef}>
+          <Carousel
+            effect="fade"
+            autoplay
+            ref={bannerRef}
+            beforeChange={bannerChange}
+          >
             {banner.map((item) => {
               return (
                 <div className="banner-item" key={item.imageUrl}>

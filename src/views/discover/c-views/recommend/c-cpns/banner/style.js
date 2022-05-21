@@ -4,8 +4,7 @@ export const BannerWrapper = styled.div`
   background: url(${(props) => props.bgImage}) center center/6000px;
 
   .banner {
-    height: 270px;
-    background-color: red;
+    height: 285px;
 
     display: flex;
 
@@ -17,10 +16,11 @@ export const BannerLeft = styled.div`
   width: 730px;
 
   .banner-item {
-    height: 270px;
+    height: 285px;
     overflow: hidden;
 
     .image {
+      height: 100%;
       width: 100%;
     }
   }
@@ -31,7 +31,7 @@ export const BannerRight = styled.a.attrs({
   target: '_blank'
 })`
   width: 254px;
-  height: 270px;
+  height: 285px;
   background: url(${require('@/assets/img/download.png')});
 `
 
