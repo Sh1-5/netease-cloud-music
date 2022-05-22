@@ -7,6 +7,7 @@ import store from './store'
 
 import AppHeader from '@/components/app-header'
 import AppFooter from '@/components/app-footer'
+import PlayerBar from '@/components/player-bar'
 
 function AppMain() {
   const element = useRoutes(routes)
@@ -20,6 +21,7 @@ export default function App() {
         <AppHeader />
         <AppMain />
         <AppFooter />
+        <PlayerBar />
       </HashRouter>
     </Provider>
   )
