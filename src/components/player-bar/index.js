@@ -55,8 +55,12 @@ const PlayerBar = memo(() => {
       audioRef.current.currentTime = ((value / 100) * duration) / 1000
       setCurrentTime((value / 100) * duration)
       setIsChangingProgress(false)
+
+      if (!isPlaying) {
+        playMusic()
+      }
     },
-    [duration]
+    [duration, isPlaying]
   )
 
   return (
