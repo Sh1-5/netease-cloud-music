@@ -146,6 +146,8 @@ export const Operator = styled.div`
     padding-left: 13px;
     background-position: -147px -248px;
 
+    position: relative;
+
     .volume {
       background-position: -2px -248px;
     }
@@ -166,6 +168,14 @@ export const Operator = styled.div`
     .playlist {
       width: 59px;
       background-position: -42px -68px;
+    }
+
+    span {
+      color: #666;
+
+      position: absolute;
+      top: 4px;
+      left: 94px;
     }
   }
 `

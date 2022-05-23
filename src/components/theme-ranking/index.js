@@ -1,12 +1,22 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
+import { useDispatch } from 'react-redux'
+
+import { getCurrentSongAction } from '../player-bar/store/actionCreators'
 
 import { ThemeRankingWrapper } from './style'
+
 import { getSizeImage } from '@/utils/format'
 
 const ThemeRanking = memo((props) => {
   const { info } = props
   const { tracks = [] } = info
+
+  const dispatch = useDispatch()
+
+  const playMusic = (id) => {
+    dispatch(getCurrentSongAction(id))
+  }
 
   return (
     <ThemeRankingWrapper>
@@ -31,7 +41,10 @@ const ThemeRanking = memo((props) => {
               <div className="info">
                 <span className="name text-nowrap">{item.name}</span>
                 <div className="operate">
-                  <div className="btn sprite_02 play"></div>
+                  <div
+                    className="btn sprite_02 play"
+                    onClick={() => playMusic(item.id)}
+                  ></div>
                   <div className="btn sprite_icon2 addto"></div>
                   <div className="btn sprite_02 favor"></div>
                 </div>

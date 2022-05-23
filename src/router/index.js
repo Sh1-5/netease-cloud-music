@@ -10,6 +10,7 @@ import Artist from '@/views/discover/c-views/artist'
 import Album from '@/views/discover/c-views/album'
 import My from '@/views/my'
 import Friend from '@/views/friend'
+import Song from '@/views/song'
 
 const routes = [
   {
@@ -57,6 +58,10 @@ const routes = [
   {
     path: 'friend',
     element: <Friend />
+  },
+  {
+    path: 'song',
+    element: <Song />
   }
 ]
 
