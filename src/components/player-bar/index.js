@@ -97,6 +97,11 @@ const PlayerBar = memo(() => {
     }
   }
   const onEnded = () => {
+    if (playList.length < 2) {
+      setIsPlaying(false)
+      setCurrentTime(0)
+      setProgress(0)
+    }
     switch (sequence) {
       case 2:
         audioRef.current.play()
