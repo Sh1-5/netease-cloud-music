@@ -34,7 +34,7 @@ const PlayerBar = memo(() => {
 
   const audioRef = useRef()
   useEffect(() => {
-    dispatch(getCurrentSongAction(1366216050))
+    dispatch(getCurrentSongAction(1418131335))
   }, [dispatch])
   useEffect(() => {
     audioRef.current.src = getPlaySong(currentSong.id)
