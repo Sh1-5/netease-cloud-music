@@ -5,7 +5,8 @@ import { NavLink } from 'react-router-dom'
 import {
   changeSequenceAction,
   getCurrentSongAction,
-  changeCurrentSongAndIndex
+  changeCurrentSongAndIndex,
+  changeCurrentLyricIndex
 } from './store/actionCreators'
 
 import { PlayerBarWrapper, Control, PlayInfo, Operator } from './style'
@@ -19,18 +20,21 @@ const PlayerBar = memo(() => {
   const [isChangingProgress, setIsChangingProgress] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
 
-  const { currentSong, sequence, playList } = useSelector((state) => {
-    return {
-      currentSong: state.getIn(['playerBar', 'currentSong']),
-      sequence: state.getIn(['playerBar', 'sequence']),
-      playList: state.getIn(['playerBar', 'playList'])
-    }
-  }, shallowEqual)
+  const { currentSong, sequence, playList, lyricList, currentLyricIndex } =
+    useSelector((state) => {
+      return {
+        currentSong: state.getIn(['playerBar', 'currentSong']),
+        sequence: state.getIn(['playerBar', 'sequence']),
+        playList: state.getIn(['playerBar', 'playList']),
+        lyricList: state.getIn(['playerBar', 'lyricList']),
+        currentLyricIndex: state.getIn(['playerBar', 'currentLyricIndex'])
+      }
+    }, shallowEqual)
   const dispatch = useDispatch()
 
   const audioRef = useRef()
   useEffect(() => {
-    dispatch(getCurrentSongAction(1359818052))
+    dispatch(getCurrentSongAction(1366216050))
   }, [dispatch])
   useEffect(() => {
     audioRef.current.src = getPlaySong(currentSong.id)
@@ -59,10 +63,24 @@ const PlayerBar = memo(() => {
     setIsPlaying(!isPlaying)
   }
   const timeUpdate = (e) => {
-    setCurrentTime(e.target.currentTime * 1000)
+    const currentTime = e.target.currentTime * 1000
+    setCurrentTime(currentTime)
     if (!isChangingProgress) {
       setProgress((currentTime / duration) * 100)
     }
+
+    let currentLyricIndex = 0
+    for (let i = 0; i < lyricList.length; i++) {
+      const item = lyricList[i]
+      if (item.time > currentTime) {
+        currentLyricIndex = i - 1
+        if (currentLyricIndex < 0) {
+          currentLyricIndex = 0
+        }
+        break
+      }
+    }
+    dispatch(changeCurrentLyricIndex(currentLyricIndex))
   }
   const changeSequence = () => {
     let nextSequence = sequence + 1
@@ -106,6 +124,11 @@ const PlayerBar = memo(() => {
 
   return (
     <PlayerBarWrapper className="sprite_player">
+      <div className="lyric">
+        <h1>
+          {lyricList[currentLyricIndex] && lyricList[currentLyricIndex].content}
+        </h1>
+      </div>
       <div className="content wrap-v2">
         <Control isPlaying={isPlaying}>
           <button

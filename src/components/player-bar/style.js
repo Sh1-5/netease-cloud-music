@@ -10,6 +10,17 @@ export const PlayerBarWrapper = styled.div`
   right: 0;
   bottom: 0;
 
+  .lyric {
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    h1 {
+      color: #c20c0c;
+    }
+  }
+
   .content {
     display: flex;
     align-items: center;

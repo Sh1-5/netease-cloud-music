@@ -1,25 +1,51 @@
 import * as actionTypes from './constants'
-import { getSongDetail } from '@/api/player-bar'
 
-export const changeCurrentSongAction = (res) => {
+import { getSongDetail, getLyric } from '@/api/player-bar'
+
+import parseLyric from '@/utils/parse-lyric'
+
+const changeCurrentSongAction = (res) => {
   return {
     type: actionTypes.CHANGE_CURRENT_SONG,
     currentSong: res
   }
 }
+
+const changePlayListAction = (res) => {
+  return {
+    type: actionTypes.CHANGE_PLAY_LIST,
+    playList: res
+  }
+}
+
+const changeCurrentIndexAction = (res) => {
+  return {
+    type: actionTypes.CHANGE_CURRENT_INDEX,
+    currentIndex: res
+  }
+}
+
+const changeLyricListAction = (res) => {
+  return {
+    type: actionTypes.CHANGE_LYRIC_LIST,
+    lyricList: res
+  }
+}
+
 export const getCurrentSongAction = (ids) => {
   return async (dispatch, getState) => {
     // 1.查找playlist有没有这首歌曲
     const playList = getState().getIn(['playerBar', 'playList'])
     const index = playList.findIndex((song) => song.id === ids)
+    let song
     // 2.判断是否找到歌曲
     if (index !== -1) {
       dispatch(changeCurrentIndexAction(index))
-      const song = playList[index]
+      song = playList[index]
       dispatch(changeCurrentSongAction(song))
     } else {
       const res = await getSongDetail(ids)
-      const song = res.songs && res.songs[0]
+      song = res.songs && res.songs[0]
       if (!song) return
       // 1.添加到播放列表中
       dispatch(changePlayListAction([...playList, song]))
@@ -28,30 +54,10 @@ export const getCurrentSongAction = (ids) => {
       // 3.更新currentSong
       dispatch(changeCurrentSongAction(song))
     }
+    if (!song) return
+    dispatch(getLyricAction(song.id))
   }
 }
-
-export const changePlayListAction = (res) => {
-  return {
-    type: actionTypes.CHANGE_PLAY_LIST,
-    playList: res
-  }
-}
-
-// export const getPlayListAction = () => {
-//   return (dispatch) => {}
-// }
-
-export const changeCurrentIndexAction = (res) => {
-  return {
-    type: actionTypes.CHANGE_CURRENT_INDEX,
-    currentIndex: res
-  }
-}
-
-// export const getCurrentIndexAction = () => {
-//   return (dispatch) => {}
-// }
 
 // 修改播放顺序
 export const changeSequenceAction = (sequence) => {
@@ -86,5 +92,22 @@ export const changeCurrentSongAndIndex = (isNext) => {
     }
     dispatch(changeCurrentIndexAction(nextIndex))
     dispatch(changeCurrentSongAction(playList[nextIndex]))
+
+    dispatch(getLyricAction(playList[nextIndex].id))
+  }
+}
+
+export const getLyricAction = (id) => {
+  return async (dispatch) => {
+    const res = await getLyric(id)
+    const arr = parseLyric(res.lrc.lyric)
+    dispatch(changeLyricListAction(arr))
+  }
+}
+
+export const changeCurrentLyricIndex = (index) => {
+  return {
+    type: actionTypes.CHANGE_CURRENT_LYRIC_INDEX,
+    currentLyricIndex: index
   }
 }
