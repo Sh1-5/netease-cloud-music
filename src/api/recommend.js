@@ -51,3 +51,14 @@ export const getPlayListDetail = (id) => {
     }
   })
 }
+
+// 推荐歌手
+export const getHotArtist = (offset, limit) => {
+  return request({
+    url: '/top/artists',
+    params: {
+      offset,
+      limit
+    }
+  })
+}

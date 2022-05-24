@@ -8,7 +8,8 @@ const defaultStore = Map({
   newAlbum: [],
   upRanking: {},
   newRanking: {},
-  originRanking: {}
+  originRanking: {},
+  hotArtist: []
 })
 
 function reducer(state = defaultStore, action) {
@@ -25,6 +26,8 @@ function reducer(state = defaultStore, action) {
       return state.set('newRanking', action.newRanking)
     case actionTypes.CHANGE_ORIGIN_RANKING:
       return state.set('originRanking', action.originRanking)
+    case actionTypes.CHANGE_HOT_ARTIST:
+      return state.set('hotArtist', action.hotArtist)
     default:
       return state
   }

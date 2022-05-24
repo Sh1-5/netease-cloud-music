@@ -3,7 +3,8 @@ import {
   getBanner,
   getHotRecommend,
   getNewAlbum,
-  getPlayListDetail
+  getPlayListDetail,
+  getHotArtist
 } from '@/api/recommend'
 import { NEW_RANKING_ID, ORIGIN_RANKING_ID } from '@/common/constants'
 
@@ -94,5 +95,20 @@ export const getRankingAction = (id) => {
       default:
         dispatch(changeUpRankingAction(res.playlist))
     }
+  }
+}
+
+// 入驻歌手
+export const changeHotArtistAction = (res) => {
+  return {
+    type: actionTypes.CHANGE_HOT_ARTIST,
+    hotArtist: res
+  }
+}
+
+export const getHotArtistAction = (offset, limit) => {
+  return async (dispatch) => {
+    const res = await getHotArtist(offset, limit)
+    dispatch(changeHotArtistAction(res.artists))
   }
 }
